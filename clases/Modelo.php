@@ -114,7 +114,7 @@ class Modelo extends Connection {
         $conn = new Connection;
         $dataBase = $conn->getConn();
 
-        $pagina_actual = (isset($_GET['page']) && ($_GET['page'])) ? $_GET['page'] : 1;
+        $page_actual = (isset($_GET['page']) && ($_GET['page'])) ? $_GET['page'] : 1;
 
         $resultados_por_pagina = 10;
 
@@ -122,44 +122,44 @@ class Modelo extends Connection {
         $total_registros_resultado = mysqli_query($dataBase, $total_registros_query);
         $total_registros_fila = mysqli_fetch_assoc($total_registros_resultado);
         $total_registros = $total_registros_fila['total'];
-        $total_paginas = ceil($total_registros / $resultados_por_pagina);
+        $total_pages = ceil($total_registros / $resultados_por_pagina);
 
         echo '<div class="pagination">';
 
-        $pagina_anterior = $pagina_actual - 1;
-        $pagina_siguiente = $pagina_actual + 1;
+        $page_prev = $page_actual - 1;
+        $page_next = $page_actual + 1;
         
-        $pagina_fin = $total_paginas - 1;
+        $page_end = $total_pages - 1;
 
-        if ($pagina_actual == 0) {
-            echo '<-'; 
+        if ($page_actual == 0) {
+            echo '<---'; 
         } else {
-            echo '<a href="?page=' . $pagina_anterior . '"> <- </a> '; 
+            echo '<a href="?page=' . $page_prev . '"> <--- </a> '; 
         }
 
-        if ($pagina_actual == 1) {
+        if ($page_actual == 1) {
             echo '<strong> Inicio </strong> '; 
         } else {
             echo '<a href="?page=1"> Inicio </a> ';
         }
         
-        for ($pagina = 2; $pagina <= $pagina_fin; $pagina++) {
-            if ($pagina == $pagina_actual) {
-                echo '<strong><a href="?page=' . $pagina . '">' . $pagina . '</a></strong> ';
+        for ($page = 2; $page <= $page_end; $page++) {
+            if ($page == $page_actual) {
+                echo '<strong><a href="?page=' . $page . '">' . $page . '</a></strong> ';
             } else {
-                echo '<a href="?page=' . $pagina . '">' . $pagina . '</a> ';
+                echo '<a href="?page=' . $page . '">' . $page . '</a> ';
             }
         }  
-        if ($pagina_actual == $total_paginas) {
+        if ($page_actual == $total_pages) {
             echo '<strong> Fin </strong> '; 
         } else {
-            echo '<a href="?page=' . $total_paginas . '"> Fin </a> ';
+            echo '<a href="?page=' . $total_pages . '"> Fin </a> ';
         }
         
-        if ($pagina_actual == 0) {
-            echo '->'; 
+        if ($page_actual == 0) {
+            echo '--->'; 
         } else {
-            echo '<a href="?page=' . $pagina_siguiente . '"> -> </a> '; 
+            echo '<a href="?page=' . $page_next . '"> ---> </a> '; 
         }
 
         $_SESSION['currentPage'] = $this->getCurrentPage();
