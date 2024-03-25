@@ -89,27 +89,7 @@ class Modelo extends Connection {
         $html .= '</table>';
         echo $html;
     }
-    
-    public function updateTarea($id, $titulo, $descripcion, $fecha_vencimiento){
-    $conn = new Connection;
-    $dataBase = $conn->getConn();
 
-    $sql = "UPDATE tareas SET titulo=?, descripcion=?, fecha_vencimiento=? WHERE id=?";
-    $stmt = $dataBase->prepare($sql);
-    $stmt->bind_param("sssi", $titulo, $descripcion, $fecha_vencimiento, $id);
-    $stmt->execute();
-    $stmt->close();
-    }
-
-    public function deleteTarea($id) {
-        $conn = $this->getConn();
-        $sql = "DELETE FROM tareas WHERE id = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-        $stmt->close();
-    }
-    
     public function showNavigation(){
         $conn = new Connection;
         $dataBase = $conn->getConn();
