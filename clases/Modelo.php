@@ -168,8 +168,5 @@ class Modelo extends Connection {
         }
         return null;
     }
-    
-    
-
 }
 ?>
